@@ -88,7 +88,6 @@ public class Servicio extends Service implements GoogleApiClient.ConnectionCallb
         pos.setLatitud(location.getLatitude());
         pos.setLongitud(location.getLongitude());
         pos.setFecha(new GregorianCalendar().getTime());
-        Toast.makeText(this,"posicion "+pos.toString(),Toast.LENGTH_SHORT).show();
         gdb=new GestorDb4o(this);
         gdb.insert(pos);
         gdb.close();

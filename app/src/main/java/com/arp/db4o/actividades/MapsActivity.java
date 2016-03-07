@@ -1,5 +1,6 @@
 package com.arp.db4o.actividades;
 
+import android.graphics.Color;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +37,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        PolylineOptions lineas=new PolylineOptions();
+        lineas.color(Color.RED);
+        lineas.width(3);
+        lineas.visible(true);
         if(posiciones.size()!=0) {
             for (Posicion p : posiciones) {
                 LatLng pos = new LatLng(p.getLatitud(), p.getLongitud());
+                lineas.add(pos);
                 mMap.addMarker(new MarkerOptions().position(pos));
             }
+            mMap.addPolyline(lineas);
             LatLng pos = new LatLng(posiciones.get(0).getLatitud(), posiciones.get(0).getLongitud());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
         }else {

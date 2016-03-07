@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+        fecha=new GregorianCalendar();
         gdb=new GestorDb4o(this);
         posiciones=gdb.getRuta(new GregorianCalendar().getTime());
         gdb.close();
@@ -64,13 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            fecha=new GregorianCalendar();
-            fecha.set(year,dayOfMonth,dayOfMonth);
-            posiciones=new ArrayList<>();
+            fecha.set(year, monthOfYear, dayOfMonth);
 
+            Log.v("FEcha Elefida", fecha.getTime().toString());
+            posiciones=new ArrayList<>();
+            gdb=new GestorDb4o(MainActivity.this);
             posiciones=gdb.getRuta(fecha.getTime());
-            Log.v("POSICIONES1",gdb.getRuta(fecha.getTime()).toString());
-            Log.v("POSICIONES2",posiciones.toString());
             gdb.close();
             Intent i=new Intent(MainActivity.this,MapsActivity.class);
             i.putExtra("posiciones",posiciones);
